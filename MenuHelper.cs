@@ -37,6 +37,11 @@ namespace InlämningsUppgift2
 
                     break;
 
+                case "Visa produkter":
+
+
+
+                    break;
             }
 
 
