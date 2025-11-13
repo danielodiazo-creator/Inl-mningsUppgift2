@@ -1,0 +1,214 @@
+﻿{
+  "produkter": [
+    {
+      "id": 1,
+      "namn": "Bärbar dator Lenovo IdeaPad 3",
+      "kategori": "Datorer",
+      "prisSEK": 7499,
+      "lager": 12
+    },
+    {
+      "id": 2,
+      "namn": "iPhone 14 Pro",
+      "kategori": "Mobiltelefoner",
+      "prisSEK": 13999,
+      "lager": 5
+    },
+    {
+      "id": 3,
+      "namn": "Samsung Galaxy Tab S9",
+      "kategori": "Surfplattor",
+      "prisSEK": 9999,
+      "lager": 8
+    },
+    {
+      "id": 4,
+      "namn": "Hörlurar Sony WH-1000XM5",
+      "kategori": "Ljud",
+      "prisSEK": 4499,
+      "lager": 15
+    },
+    {
+      "id": 5,
+      "namn": "Smartklocka Garmin Venu 3",
+      "kategori": "Klockor",
+      "prisSEK": 4999,
+      "lager": 10
+    },
+    {
+      "id": 6,
+      "namn": "Kamera Canon EOS R10",
+      "kategori": "Foto",
+      "prisSEK": 12499,
+      "lager": 7
+    },
+    {
+      "id": 7,
+      "namn": "Mekaniskt tangentbord Logitech G Pro X",
+      "kategori": "Tillbehör",
+      "prisSEK": 1699,
+      "lager": 20
+    },
+    {
+      "id": 8,
+      "namn": "Trådlös mus Logitech MX Master 3S",
+      "kategori": "Tillbehör",
+      "prisSEK": 1199,
+      "lager": 25
+    },
+    {
+      "id": 9,
+      "namn": "Bildskärm LG UltraWide 34''",
+      "kategori": "Skärmar",
+      "prisSEK": 6499,
+      "lager": 9
+    },
+    {
+      "id": 10,
+      "namn": "Spelkonsol PlayStation 5",
+      "kategori": "Spel",
+      "prisSEK": 7999,
+      "lager": 6
+    },
+    {
+      "id": 11,
+      "namn": "Nintendo Switch OLED",
+      "kategori": "Spel",
+      "prisSEK": 4999,
+      "lager": 8
+    },
+    {
+      "id": 12,
+      "namn": "Kaffemaskin Nespresso Vertuo",
+      "kategori": "Hushållsapparater",
+      "prisSEK": 1899,
+      "lager": 14
+    },
+    {
+      "id": 13,
+      "namn": "Dammsugare Dyson V15 Detect",
+      "kategori": "Hushållsapparater",
+      "prisSEK": 7499,
+      "lager": 11
+    },
+    {
+      "id": 14,
+      "namn": "TV Samsung QLED 65'' 4K",
+      "kategori": "TV och video",
+      "prisSEK": 11999,
+      "lager": 5
+    },
+    {
+      "id": 15,
+      "namn": "Router TP-Link Archer AX90 WiFi 6",
+      "kategori": "Nätverk",
+      "prisSEK": 2499,
+      "lager": 18
+    },
+    {
+      "id": 16,
+      "namn": "SSD Samsung 980 PRO 1TB",
+      "kategori": "Lagring",
+      "prisSEK": 1599,
+      "lager": 30
+    },
+    {
+      "id": 17,
+      "namn": "RAM-minne Corsair Vengeance 32GB DDR5",
+      "kategori": "Komponenter",
+      "prisSEK": 2299,
+      "lager": 22
+    },
+    {
+      "id": 18,
+      "namn": "Grafikkort NVIDIA RTX 4070",
+      "kategori": "Komponenter",
+      "prisSEK": 9999,
+      "lager": 4
+    },
+    {
+      "id": 19,
+      "namn": "Kontorsstol Secretlab Titan Evo",
+      "kategori": "Möbler",
+      "prisSEK": 5499,
+      "lager": 13
+    },
+    {
+      "id": 20,
+      "namn": "Bordslampa Philips Hue Go",
+      "kategori": "Belysning",
+      "prisSEK": 899,
+      "lager": 25
+    },
+    {
+      "id": 21,
+      "namn": "Bluetooth-högtalare JBL Charge 5",
+      "kategori": "Ljud",
+      "prisSEK": 1699,
+      "lager": 17
+    },
+    {
+      "id": 22,
+      "namn": "Elcykel Crescent Elda 9-vxl",
+      "kategori": "Cyklar",
+      "prisSEK": 25999,
+      "lager": 3
+    },
+    {
+      "id": 23,
+      "namn": "Airfryer Philips XXL",
+      "kategori": "Kök",
+      "prisSEK": 2999,
+      "lager": 9
+    },
+    {
+      "id": 24,
+      "namn": "Trådlös laddare Belkin 15W",
+      "kategori": "Tillbehör",
+      "prisSEK": 499,
+      "lager": 40
+    },
+    {
+      "id": 25,
+      "namn": "Gamingmus Razer DeathAdder V3",
+      "kategori": "Speltillbehör",
+      "prisSEK": 999,
+      "lager": 27
+    },
+    {
+      "id": 26,
+      "namn": "Apple AirPods Pro (2:a gen)",
+      "kategori": "Ljud",
+      "prisSEK": 3299,
+      "lager": 14
+    },
+    {
+      "id": 27,
+      "namn": "Smart-TV LG OLED55C3 55'' 4K",
+      "kategori": "TV och video",
+      "prisSEK": 13999,
+      "lager": 6
+    },
+    {
+      "id": 28,
+      "namn": "Elkettle Wilfa Boil 1.7L",
+      "kategori": "Kök",
+      "prisSEK": 599,
+      "lager": 23
+    },
+    {
+      "id": 29,
+      "namn": "Extern hårddisk Seagate 2TB",
+      "kategori": "Lagring",
+      "prisSEK": 899,
+      "lager": 32
+    },
+    {
+      "id": 30,
+      "namn": "Portabel projektor Anker Nebula Capsule 3",
+      "kategori": "TV och video",
+      "prisSEK": 6999,
+      "lager": 5
+    }
+  ]
+}
