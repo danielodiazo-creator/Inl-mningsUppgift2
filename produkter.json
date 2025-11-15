@@ -1,145 +1,144 @@
-ï»¿{
-  {
-    "produkter": [
-      {
-        "id": "1",
-        "name": "MjÃ¶lk 1L",
-        "category": "Mejeri",
-        "price": "15.90",
-        "stock": 120
-      },
-      {
-        "id": "2",
-        "name": "SmÃ¶r 500g",
-        "category": "Mejeri",
-        "price": "42.50",
-        "stock": 80
-      },
-      {
-        "id": "3",
-        "name": "Ã„gg 10-pack",
-        "category": "Mejeri",
-        "price": "39.00",
-        "stock": 150
-      },
-      {
-        "id": "4",
-        "name": "BrÃ¶d Fullkorn",
-        "category": "Bageri",
-        "price": "29.90",
-        "stock": 100
-      },
-      {
-        "id": "5",
-        "name": "Kaffe 500g",
-        "category": "Drycker",
-        "price": "79.00",
-        "stock": 60
-      },
-      {
-        "id": "6",
-        "name": "Socker 1kg",
-        "category": "Torrvaror",
-        "price": "25.50",
-        "stock": 200
-      },
-      {
-        "id": "7",
-        "name": "Salt 500g",
-        "category": "Torrvaror",
-        "price": "12.90",
-        "stock": 300
-      },
-      {
-        "id": "8",
-        "name": "Ris 2kg",
-        "category": "Torrvaror",
-        "price": "49.90",
-        "stock": 90
-      },
-      {
-        "id": "9",
-        "name": "KycklingbrÃ¶st 1kg",
-        "category": "KÃ¶tt",
-        "price": "119.00",
-        "stock": 70
-      },
-      {
-        "id": "10",
-        "name": "LaxfilÃ© 1kg",
-        "category": "Fisk",
-        "price": "189.00",
-        "stock": 50
-      },
-      {
-        "id": "11",
-        "name": "Ã„pplen 1kg",
-        "category": "Frukt",
-        "price": "29.90",
-        "stock": 130
-      },
-      {
-        "id": "12",
-        "name": "Bananer 1kg",
-        "category": "Frukt",
-        "price": "24.90",
-        "stock": 140
-      },
-      {
-        "id": "13",
-        "name": "Tomater 1kg",
-        "category": "GrÃ¶nsaker",
-        "price": "34.90",
-        "stock": 120
-      },
-      {
-        "id": "14",
-        "name": "Potatis 2kg",
-        "category": "GrÃ¶nsaker",
-        "price": "39.90",
-        "stock": 100
-      },
-      {
-        "id": "15",
-        "name": "Olja 1L",
-        "category": "Matlagning",
-        "price": "45.00",
-        "stock": 80
-      },
-      {
-        "id": "16",
-        "name": "Pasta 500g",
-        "category": "Torrvaror",
-        "price": "22.50",
-        "stock": 150
-      },
-      {
-        "id": "17",
-        "name": "Yoghurt 1L",
-        "category": "Mejeri",
-        "price": "19.90",
-        "stock": 90
-      },
-      {
-        "id": "18",
-        "name": "Ost 1kg",
-        "category": "Mejeri",
-        "price": "129.00",
-        "stock": 60
-      },
-      {
-        "id": "19",
-        "name": "TvÃ¤ttmedel 1kg",
-        "category": "HushÃ¥ll",
-        "price": "69.00",
-        "stock": 50
-      },
-      {
-        "id": "20",
-        "name": "Toalettpapper 8-pack",
-        "category": "HushÃ¥ll",
-        "price": "59.00",
-        "stock": 75
-      }
-    ]
-  }
+{
+  "produkter": [
+    {
+      "id": "1",
+      "name": "Mjölk 1L",
+      "category": "Mejeri",
+      "price": 15.90,
+      "stock": 120
+    },
+    {
+      "id": "2",
+      "name": "Smör 500g",
+      "category": "Mejeri",
+      "price": 42.50,
+      "stock": 80
+    },
+    {
+      "id": "3",
+      "name": "Ägg 10-pack",
+      "category": "Mejeri",
+      "price": 39.00,
+      "stock": 150
+    },
+    {
+      "id": "4",
+      "name": "Bröd Fullkorn",
+      "category": "Bageri",
+      "price": 29.90,
+      "stock": 100
+    },
+    {
+      "id": "5",
+      "name": "Kaffe 500g",
+      "category": "Drycker",
+      "price": 79.00,
+      "stock": 60
+    },
+    {
+      "id": "6",
+      "name": "Socker 1kg",
+      "category": "Torrvaror",
+      "price": 25.50,
+      "stock": 200
+    },
+    {
+      "id": "7",
+      "name": "Salt 500g",
+      "category": "Torrvaror",
+      "price": 12.90,
+      "stock": 300
+    },
+    {
+      "id": "8",
+      "name": "Ris 2kg",
+      "category": "Torrvaror",
+      "price": 49.90,
+      "stock": 90
+    },
+    {
+      "id": "9",
+      "name": "Kycklingbröst 1kg",
+      "category": "Kött",
+      "price": 119.00,
+      "stock": 70
+    },
+    {
+      "id": "10",
+      "name": "Laxfilé 1kg",
+      "category": "Fisk",
+      "price": 189.00,
+      "stock": 50
+    },
+    {
+      "id": "11",
+      "name": "Äpplen 1kg",
+      "category": "Frukt",
+      "price": 29.90,
+      "stock": 130
+    },
+    {
+      "id": "12",
+      "name": "Bananer 1kg",
+      "category": "Frukt",
+      "price": 24.90,
+      "stock": 140
+    },
+    {
+      "id": "13",
+      "name": "Tomater 1kg",
+      "category": "Grönsaker",
+      "price": 34.90,
+      "stock": 120
+    },
+    {
+      "id": "14",
+      "name": "Potatis 2kg",
+      "category": "Grönsaker",
+      "price": 39.90,
+      "stock": 100
+    },
+    {
+      "id": "15",
+      "name": "Olja 1L",
+      "category": "Matlagning",
+      "price": 45.00,
+      "stock": 80
+    },
+    {
+      "id": "16",
+      "name": "Pasta 500g",
+      "category": "Torrvaror",
+      "price": 22.50,
+      "stock": 150
+    },
+    {
+      "id": "17",
+      "name": "Yoghurt 1L",
+      "category": "Mejeri",
+      "price": 19.90,
+      "stock": 90
+    },
+    {
+      "id": "18",
+      "name": "Ost 1kg",
+      "category": "Mejeri",
+      "price": 129.00,
+      "stock": 60
+    },
+    {
+      "id": "19",
+      "name": "Tvättmedel 1kg",
+      "category": "Hushåll",
+      "price": 69.00,
+      "stock": 50
+    },
+    {
+      "id": "20",
+      "name": "Toalettpapper 8-pack",
+      "category": "Hushåll",
+      "price": 59.00,
+      "stock": 75
+    }
+  ]
+}

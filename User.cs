@@ -17,7 +17,7 @@ namespace InlämningsUppgift2
         public int KundNummer { get; set; } //Unik användares nummer
 
 
-        public static int KundCounter = 100;
+        public static int KundCounter = 0;
 
         private static string filePath = "users.json";
 
@@ -83,6 +83,41 @@ namespace InlämningsUppgift2
             return new List<User>();
         }
 
+        public static User LoginUser()
+        {
+            List<User> allUsers = LoadUsers();
+
+            if(allUsers.Count == 0)
+            {
+                AnsiConsole.MarkupLine("Du måste skapa ett konto först");
+                
+            }
+
+            
+            string username = AnsiConsole.Ask<string>("Ange ditt användarnamn:");
+            string password = AnsiConsole.Ask<string>("Ange ditt lösenord:");
+            
+
+            User foundUser = null;
+
+            foreach(User x in allUsers)
+            {
+                if(x.Username == username && x.Password == password)
+                {
+                    foundUser = x;
+
+                }
+            }
+
+            if(foundUser == null)
+            {
+                AnsiConsole.MarkupLine("[red] Fel användarnman [/]");
+
+            }
+
+            AnsiConsole.MarkupLine("[green] Du har loggat in [/]" + foundUser.Username);
+            return foundUser;
+        }
 
 
     }

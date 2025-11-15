@@ -16,20 +16,17 @@ namespace InlämningsUppgift2
         public double price { get; set; }
         public int stock { get; set; }
 
-        public void Produkter()
-        {
-            List<Product> products = new List<Product>();
-
-        }
         
-        public void ShowProduct()
+        public static void ShowProduct()
         {
+
+
             string json = File.ReadAllText("produkter.json");
             ProductRoot root = JsonSerializer.Deserialize<ProductRoot>(json);
 
             AnsiConsole.MarkupLine("[yellow] tillgängliga produkter [/]");
 
-            foreach(var x in root.products)
+            foreach(var x in root.produkter)
             {
                 Console.WriteLine($"{x.id}. {x.name} ({x.category}) - {x.price} SEK - Lager: {x.stock}");
             }
@@ -40,6 +37,6 @@ namespace InlämningsUppgift2
 
     public class ProductRoot
     {
-        public List<Product> products { get; set; }
+        public List<Product> produkter { get; set; }
     }
 }

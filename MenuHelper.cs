@@ -11,40 +11,45 @@ namespace InlämningsUppgift2
     {
         public void Menu()
         {
-            AnsiConsole.MarkupLine("[blue bold] Hej och välkommen [/]");
 
-            string option = AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-                .Title("Välj Alternativ")
-                .AddChoices("Skapa ny användare", "Logga in", "Lägga till order", "Spåra order")      
-                );
-
-            switch (option)
+            bool GoOn = true;
+            while (GoOn)
             {
-                case "Skapa ny användare":
-                    User.CreateNewUser();
-                    break;
 
-                case "Logga in":
-                    
-                    break;
+                AnsiConsole.MarkupLine("[blue bold] Hej och välkommen [/]");
 
-                case "Lägg till order":
+                string option = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                    .Title("Välj Alternativ")
+                    .AddChoices("Skapa ny användare", "Logga in", "Lägga till order", "Spåra order", "Visa Produkter")
+                    );
 
-                    break;
+                switch (option)
+                {
+                    case "Skapa ny användare":
+                        User.CreateNewUser();
+                        break;
 
-                case "Spåra order":
+                    case "Logga in":
+                        User.LoginUser();
+                        break;
 
-                    break;
+                    case "Lägg till order":
 
-                case "Visa produkter":
+                        break;
+
+                    case "Spåra order":
+
+                        break;
+
+                    case "Visa produkter":
+                        Product.ShowProduct();
 
 
+                        break;
+                }
 
-                    break;
             }
-
-
 
         }
         
