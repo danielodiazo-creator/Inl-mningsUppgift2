@@ -21,7 +21,7 @@ namespace InlämningsUppgift2
                 string option = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                     .Title("Välj Alternativ")
-                    .AddChoices("Skapa ny användare", "Logga in", "Lägga till order", "Spåra order", "Visa Produkter")
+                    .AddChoices("Skapa ny användare", "Logga in", "Lägga till order", "Spåra order", "Visa produkter")
                     );
 
                 switch (option)

@@ -16,24 +16,29 @@ namespace InlämningsUppgift2
         public double price { get; set; }
         public int stock { get; set; }
 
-        
+
+
         public static void ShowProduct()
         {
-
+            
 
             string json = File.ReadAllText("produkter.json");
             ProductRoot root = JsonSerializer.Deserialize<ProductRoot>(json);
 
-            AnsiConsole.MarkupLine("[yellow] tillgängliga produkter [/]");
+           AnsiConsole.MarkupLine("[yellow] tillgängliga produkter [/]");
 
             foreach(var x in root.produkter)
             {
-                Console.WriteLine($"{x.id}. {x.name} ({x.category}) - {x.price} SEK - Lager: {x.stock}");
+            Console.WriteLine($"{x.id}. {x.name} ({x.category}) - {x.price} SEK - Lager: {x.stock}");
             }
-            
 
+           Console.ReadKey();
         }
+
+
+
     }
+
 
     public class ProductRoot
     {

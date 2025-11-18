@@ -11,4 +11,10 @@
     <PackageReference Include="Spectre.Console" Version="0.53.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="produkter.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
