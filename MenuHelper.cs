@@ -22,7 +22,7 @@ namespace InlämningsUppgift2
                 string option = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                     .Title("Välj Alternativ")
-                    .AddChoices("Skapa ny användare", "Logga in", "Spåra order", "Lägga till order")
+                    .AddChoices("Skapa ny användare", "Logga in", "Spåra order", "Lägga till order", "Visa Kundvagnen")
                     );
 
                 switch (option)
@@ -37,6 +37,10 @@ namespace InlämningsUppgift2
 
                     case "Lägga till order":
                         Product.ShowProduct();
+                        break;
+
+                    case "Visa Kundvagnen":
+                        Product.ShoppingCar();
                         break;
 
                     case "Spåra order":

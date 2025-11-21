@@ -16,6 +16,8 @@ namespace InlämningsUppgift2
         public double price { get; set; }
         public int stock { get; set; }
 
+        public static List<Product> shoppingCar = new List<Product>();
+
         public override string ToString()
         {
             return $"{name} - {price} SEK (Lager: {stock})";
@@ -36,7 +38,10 @@ namespace InlämningsUppgift2
                 .AddChoices(root.produkter)
                 );
 
-            AnsiConsole.MarkupLine("[green]Du valde:[/]");
+
+            shoppingCar.Add(selectedProduct);
+
+            AnsiConsole.MarkupLine("[green]KundVagnen :[/]");
             AnsiConsole.MarkupLine($"ID: {selectedProduct.id}");
             AnsiConsole.MarkupLine($"Namn: {selectedProduct.name}");
             AnsiConsole.MarkupLine($"Kategori: {selectedProduct.category}");
@@ -46,10 +51,36 @@ namespace InlämningsUppgift2
             Console.ReadKey();
 
             
-           
   
 
         }
+
+
+        public static void ShoppingCar()
+        {
+            if(shoppingCar.Count == 0)
+            {
+                AnsiConsole.MarkupLine("[bold red] Kundvagnen är tom");
+            }
+
+            var table = new Table();
+            table.AddColumn("product");
+            table.AddColumn("pris");
+
+            foreach(var x in shoppingCar)
+            {
+                table.AddRow(x.name, x.price.ToString("C2"));
+            }
+
+            AnsiConsole.Write(table);
+
+            double total = shoppingCar.Sum(x => x.price);
+            AnsiConsole.MarkupLine("[bold green] Total pris: [/] " + total + "Sek");
+
+
+        }
+
+
 
     }
 
@@ -58,4 +89,6 @@ namespace InlämningsUppgift2
     {
         public List<Product> produkter { get; set; }
     }
+
+    
 }
