@@ -16,26 +16,40 @@ namespace InlämningsUppgift2
         public double price { get; set; }
         public int stock { get; set; }
 
-
+        public override string ToString()
+        {
+            return $"{name} - {price} SEK (Lager: {stock})";
+        }
 
         public static void ShowProduct()
         {
-            
+
 
             string json = File.ReadAllText("produkter.json");
             ProductRoot root = JsonSerializer.Deserialize<ProductRoot>(json);
 
-           AnsiConsole.MarkupLine("[yellow] tillgängliga produkter [/]");
+            var selectedProduct = AnsiConsole.Prompt(
+                new SelectionPrompt<Product>()
+                .Title("[yellow] Välj bland de tillgängliga produkter[/]")
+                .PageSize(10)
+                .MoreChoicesText("[bold grey] Visa mer [/]")
+                .AddChoices(root.produkter)
+                );
 
-            foreach(var x in root.produkter)
-            {
-            Console.WriteLine($"{x.id}. {x.name} ({x.category}) - {x.price} SEK - Lager: {x.stock}");
-            }
+            AnsiConsole.MarkupLine("[green]Du valde:[/]");
+            AnsiConsole.MarkupLine($"ID: {selectedProduct.id}");
+            AnsiConsole.MarkupLine($"Namn: {selectedProduct.name}");
+            AnsiConsole.MarkupLine($"Kategori: {selectedProduct.category}");
+            AnsiConsole.MarkupLine($"Pris: {selectedProduct.price} SEK");
+            AnsiConsole.MarkupLine($"Lager: {selectedProduct.stock}");
 
-           Console.ReadKey();
+            Console.ReadKey();
+
+            
+           
+  
+
         }
-
-
 
     }
 
