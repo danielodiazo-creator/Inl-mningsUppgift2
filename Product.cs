@@ -1,6 +1,7 @@
 ﻿using Spectre.Console;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -15,6 +16,8 @@ namespace InlämningsUppgift2
         public string category { get; set; }
         public double price { get; set; }
         public int stock { get; set; }
+
+        
 
         public static List<Product> shoppingCar = new List<Product>();
 
@@ -74,12 +77,16 @@ namespace InlämningsUppgift2
 
             AnsiConsole.Write(table);
 
-            double total = shoppingCar.Sum(x => x.price);
-            AnsiConsole.MarkupLine("[bold green] Total pris: [/] " + total + "Sek");
+            AnsiConsole.MarkupLine("[bold green] Total pris: [/] " + Total() + "Sek");
 
-
+            Order Payorder = new Order();
+            Payorder.CheckOut();
         }
 
+        public static double Total()
+        {
+           return shoppingCar.Sum(x => x.price);
+        }
 
 
     }
