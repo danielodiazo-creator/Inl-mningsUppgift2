@@ -44,7 +44,7 @@ namespace InlämningsUppgift2
                         break;
 
                     case "Spåra order":
-
+                        Order.ShowOrderHistory();
                         break;
 
                     

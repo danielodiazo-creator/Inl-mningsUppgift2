@@ -75,9 +75,10 @@ namespace InlämningsUppgift2
 
         public static void ShoppingCar()
         {
-            if(shoppingCar.Count == 0)
+            if(shoppingCar.Count == 0 || User.LoggedInUser == null)
             {
-                AnsiConsole.MarkupLine("[bold red] Kundvagnen är tom");
+                AnsiConsole.MarkupLine("[bold red] Kundvagnen är tom [/]");
+                return;
                 
             }
 
@@ -104,7 +105,17 @@ namespace InlämningsUppgift2
         }
 
 
+
+
+
+
     }
+
+
+
+
+
+
 
 
     public class ProductRoot
