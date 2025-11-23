@@ -68,15 +68,20 @@ namespace InlämningsUppgift2
             {
                 foreach(var x in Order.ListOfOrders)
                 {
-                    AnsiConsole.MarkupLine($"[bold green] Order från {x.OrderDate} [/]");
+                    var table = new Table();
+                    
+                    table.Title($"[bold green] Order från {x.OrderDate} [/]");
+
+                    table.AddColumn("[bold yellow] produkt [/]");
+                    table.AddColumn("[bold yellow] pris [/] "); 
 
                     foreach(var p in x.Products)
                     {
-                        AnsiConsole.MarkupLine($"{p.name} : {p.price}");
+                        table.AddRow(p.name, p.price.ToString("0,00"));
                     }
 
-                    AnsiConsole.MarkupLine($"[bold yellow] Total: {x.Total}[/]");
-
+                    table.AddRow($"[Bold yellow] Total [/]", $"[bold yellow]{x.Total: 0.00}[/]");
+                    AnsiConsole.Write(table);
 
                 }
             }
