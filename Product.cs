@@ -1,6 +1,7 @@
 ﻿using Spectre.Console;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -16,25 +17,91 @@ namespace InlämningsUppgift2
         public double price { get; set; }
         public int stock { get; set; }
 
+        
 
+        public static List<Product> shoppingCar = new List<Product>();
+
+        public override string ToString()
+        {
+            return $"{name} - {price} SEK (Lager: {stock})";
+        }
 
         public static void ShowProduct()
         {
             
-
-            string json = File.ReadAllText("produkter.json");
-            ProductRoot root = JsonSerializer.Deserialize<ProductRoot>(json);
-
-           AnsiConsole.MarkupLine("[yellow] tillgängliga produkter [/]");
-
-            foreach(var x in root.produkter)
+            if (User.LoggedInUser == null)
             {
-            Console.WriteLine($"{x.id}. {x.name} ({x.category}) - {x.price} SEK - Lager: {x.stock}");
+                User.LoginUser();
+                if(User.LoggedInUser == null) 
+                {
+                    AnsiConsole.MarkupLine("[red] Du måste skapa ett konto för att fortsätta [/]");
+                    return;
+
+                }
+
+              
             }
 
-           Console.ReadKey();
+            else
+            {
+                string json = File.ReadAllText("produkter.json");
+                ProductRoot root = JsonSerializer.Deserialize<ProductRoot>(json);
+
+                var selectedProduct = AnsiConsole.Prompt(
+                    new SelectionPrompt<Product>()
+                    .Title("[yellow] Välj bland de tillgängliga produkter[/]")
+                    .PageSize(10)
+                    .MoreChoicesText("[bold grey] Visa mer [/]")
+                    .AddChoices(root.produkter)
+                    );
+
+
+                shoppingCar.Add(selectedProduct);
+
+                AnsiConsole.MarkupLine("[green]KundVagnen :[/]");
+                AnsiConsole.MarkupLine($"ID: {selectedProduct.id}");
+                AnsiConsole.MarkupLine($"Namn: {selectedProduct.name}");
+                AnsiConsole.MarkupLine($"Kategori: {selectedProduct.category}");
+                AnsiConsole.MarkupLine($"Pris: {selectedProduct.price} SEK");
+                AnsiConsole.MarkupLine($"Lager: {selectedProduct.stock}");
+
+                Console.ReadKey();
+
+            }
+  
+
         }
 
+
+        public static void ShoppingCar()
+        {
+            if(shoppingCar.Count == 0)
+            {
+                AnsiConsole.MarkupLine("[bold red] Kundvagnen är tom");
+                
+            }
+
+            var table = new Table();
+            table.AddColumn("product");
+            table.AddColumn("pris");
+
+            foreach(var x in shoppingCar)
+            {
+                table.AddRow(x.name, x.price.ToString("C2"));
+            }
+
+            AnsiConsole.Write(table);
+
+            AnsiConsole.MarkupLine("[bold green] Total pris: [/] " + Total() + "Sek");
+
+            Order Payorder = new Order();
+            Payorder.CheckOut();
+        }
+
+        public static double Total()
+        {
+           return shoppingCar.Sum(x => x.price);
+        }
 
 
     }
@@ -44,4 +111,6 @@ namespace InlämningsUppgift2
     {
         public List<Product> produkter { get; set; }
     }
+
+    
 }

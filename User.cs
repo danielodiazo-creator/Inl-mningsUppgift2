@@ -21,6 +21,8 @@ namespace InlämningsUppgift2
 
         private static string filePath = "users.json";
 
+        public static User LoggedInUser = null;
+
 
         public User(string username, string password, string email, string adress)
         {
@@ -61,24 +63,30 @@ namespace InlämningsUppgift2
             if (!File.Exists(filePath))
             {
                 return new List<User>();
+
             }
 
-            string jsonText = File.ReadAllText(filePath);
-            List<User> allUsers = JsonSerializer.Deserialize<List<User>>(jsonText);
-
-            if (allUsers != null && allUsers.Count > 0)
+            else
             {
-                int highestNumber = 0;
-                foreach (User x in allUsers)
+                string jsonText = File.ReadAllText(filePath);
+                List<User> allUsers = JsonSerializer.Deserialize<List<User>>(jsonText);
+
+                if (allUsers != null && allUsers.Count > 0)
                 {
-                    if (x.KundNummer > highestNumber)
+                    int highestNumber = 0;
+                    foreach (User x in allUsers)
                     {
-                        highestNumber = x.KundNummer;
+                        if (x.KundNummer > highestNumber)
+                        {
+                            highestNumber = x.KundNummer;
+                        }
                     }
+                    KundCounter = highestNumber + 1;
+                    return allUsers;
                 }
-                KundCounter = highestNumber + 1;
-                return allUsers;
+
             }
+
 
             return new List<User>();
         }
@@ -90,7 +98,7 @@ namespace InlämningsUppgift2
             if(allUsers.Count == 0)
             {
                 AnsiConsole.MarkupLine("Du måste skapa ett konto först");
-                
+                return CreateNewUser();
             }
 
             
@@ -112,10 +120,11 @@ namespace InlämningsUppgift2
             if(foundUser == null)
             {
                 AnsiConsole.MarkupLine("[red] Fel användarnman [/]");
-
+                return null;
             }
 
             AnsiConsole.MarkupLine("[green] Du har loggat in [/]" + foundUser.Username);
+            LoggedInUser = foundUser;
             return foundUser;
         }
 
