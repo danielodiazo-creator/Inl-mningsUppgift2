@@ -28,32 +28,46 @@ namespace InlämningsUppgift2
 
         public static void ShowProduct()
         {
-
-
-            string json = File.ReadAllText("produkter.json");
-            ProductRoot root = JsonSerializer.Deserialize<ProductRoot>(json);
-
-            var selectedProduct = AnsiConsole.Prompt(
-                new SelectionPrompt<Product>()
-                .Title("[yellow] Välj bland de tillgängliga produkter[/]")
-                .PageSize(10)
-                .MoreChoicesText("[bold grey] Visa mer [/]")
-                .AddChoices(root.produkter)
-                );
-
-
-            shoppingCar.Add(selectedProduct);
-
-            AnsiConsole.MarkupLine("[green]KundVagnen :[/]");
-            AnsiConsole.MarkupLine($"ID: {selectedProduct.id}");
-            AnsiConsole.MarkupLine($"Namn: {selectedProduct.name}");
-            AnsiConsole.MarkupLine($"Kategori: {selectedProduct.category}");
-            AnsiConsole.MarkupLine($"Pris: {selectedProduct.price} SEK");
-            AnsiConsole.MarkupLine($"Lager: {selectedProduct.stock}");
-
-            Console.ReadKey();
-
             
+            if (User.LoggedInUser == null)
+            {
+                User.LoginUser();
+                if(User.LoggedInUser == null) 
+                {
+                    AnsiConsole.MarkupLine("[red] Du måste skapa ett konto för att fortsätta [/]");
+                    return;
+
+                }
+
+              
+            }
+
+            else
+            {
+                string json = File.ReadAllText("produkter.json");
+                ProductRoot root = JsonSerializer.Deserialize<ProductRoot>(json);
+
+                var selectedProduct = AnsiConsole.Prompt(
+                    new SelectionPrompt<Product>()
+                    .Title("[yellow] Välj bland de tillgängliga produkter[/]")
+                    .PageSize(10)
+                    .MoreChoicesText("[bold grey] Visa mer [/]")
+                    .AddChoices(root.produkter)
+                    );
+
+
+                shoppingCar.Add(selectedProduct);
+
+                AnsiConsole.MarkupLine("[green]KundVagnen :[/]");
+                AnsiConsole.MarkupLine($"ID: {selectedProduct.id}");
+                AnsiConsole.MarkupLine($"Namn: {selectedProduct.name}");
+                AnsiConsole.MarkupLine($"Kategori: {selectedProduct.category}");
+                AnsiConsole.MarkupLine($"Pris: {selectedProduct.price} SEK");
+                AnsiConsole.MarkupLine($"Lager: {selectedProduct.stock}");
+
+                Console.ReadKey();
+
+            }
   
 
         }
@@ -64,6 +78,7 @@ namespace InlämningsUppgift2
             if(shoppingCar.Count == 0)
             {
                 AnsiConsole.MarkupLine("[bold red] Kundvagnen är tom");
+                
             }
 
             var table = new Table();
