@@ -7,35 +7,39 @@ using System.Threading.Tasks;
 
 namespace InlämningsUppgift2
 {
-    public static class KontoManager<T>  //T står för Type
+    public static class KontoManager<T>  //Generisk klasss som tillåter oss använda vilken som helst typ av obejkt T
     {
-        public static List<T> Load(string filePath)
+        public static List<T> Load(string filePath) //Metoden för att hämta ut data från en json file
         {
-            if (!File.Exists(filePath))
+            if (!File.Exists(filePath))  // Kontrollerar om filen existerar. Annars returnerar en tomt List
             {
                 return new List<T>();
             }
 
-            string jsonText = File.ReadAllText(filePath);
+            string jsonText = File.ReadAllText(filePath); // Läser json filen som en text
 
-            List<T> items = JsonSerializer.Deserialize<List<T>>(jsonText);
+            List<T> items = JsonSerializer.Deserialize<List<T>>(jsonText);   //Deserialize texten json till en list av objects från type T
             
-            if(items == null)
+            if(items == null) //Om deserializen är null returnerar en tomt lista
             {
                 return new List<T>();
             }
 
-            else
+            else  //Om allt funkar bra så returnerar den listan med alla objekt
             {
                 return items;
             }
 
         }
 
-        public static void Save(List<T> items, string filePath)
+        public static void Save(List<T> items, string filePath)  // Metoden för att spara data till en json file
         {
+
+            //Konverterar listen av objekt till en text file med writeIndented format som för det lättare att läsa
+
             string jsonText = JsonSerializer.Serialize(items, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(filePath, jsonText);
+           
+            File.WriteAllText(filePath, jsonText);  //Skriver json texten i filen, om filen inte finns den kommer att skapa den
            
 
         }
