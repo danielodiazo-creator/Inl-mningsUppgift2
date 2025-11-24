@@ -82,7 +82,7 @@ namespace InlämningsUppgift2
 
                     table.AddRow($"[Bold yellow] Total [/]", $"[bold yellow]{x.Total: 0.00}[/]");
                     AnsiConsole.Write(table);
-
+                    AnsiConsole.WriteLine();
                 }
             }
 

@@ -54,41 +54,21 @@ namespace InlämningsUppgift2
             List<User> allUsers = LoadUsers();
             allUsers.Add(user);
 
-            string jsonText = JsonSerializer.Serialize(allUsers, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(filePath, jsonText);
+            KontoManager<User>.Save(allUsers, filePath);
         }
 
         public static List<User> LoadUsers()
         {
-            if (!File.Exists(filePath))
+            List<User> allUsers = KontoManager<User>.Load(filePath);
+            
+            if(allUsers != null && allUsers.Count > 0)
             {
-                return new List<User>();
-
+                int highestNumber = allUsers.Max(x => x.KundNummer);
+                KundCounter = highestNumber + 1;
             }
 
-            else
-            {
-                string jsonText = File.ReadAllText(filePath);
-                List<User> allUsers = JsonSerializer.Deserialize<List<User>>(jsonText);
-
-                if (allUsers != null && allUsers.Count > 0)
-                {
-                    int highestNumber = 0;
-                    foreach (User x in allUsers)
-                    {
-                        if (x.KundNummer > highestNumber)
-                        {
-                            highestNumber = x.KundNummer;
-                        }
-                    }
-                    KundCounter = highestNumber + 1;
-                    return allUsers;
-                }
-
-            }
-
-
-            return new List<User>();
+            return allUsers;
+            
         }
 
         public static User LoginUser()
