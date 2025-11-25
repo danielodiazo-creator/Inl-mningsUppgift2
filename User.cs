@@ -8,8 +8,10 @@ using System.Text.Json;
 
 namespace InlämningsUppgift2
 {
-    public class User
+    public class User  //Klass som representerar användaren
     {
+        //Properties från avändaren
+
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
@@ -17,17 +19,17 @@ namespace InlämningsUppgift2
         public int KundNummer { get; set; } //Unik användares nummer
 
 
-        public static int KundCounter = 0;
+        public static int KundCounter = 0; //Statisk Räknare för att skapa unika kundNummer
 
-        private static string filePath = "users.json";
+        private static string filePath = "users.json"; //här sparar man alla användare
 
-        public static User LoggedInUser = null;
+        public static User LoggedInUser = null; //Representerar inloggad användare, annars börjar den som null. 
 
 
-        public User(string username, string password, string email, string adress)
-        {
-            KundNummer = KundCounter;
-            KundCounter++;
+        public User(string username, string password, string email, string adress) //Här är konstruktören som skapar en användare och ger 
+        {                                                                          //den en unik kundnummer
+            KundNummer = KundCounter; //Här tilldelar man den nuvarande nummer
+            KundCounter++;           //Och här ökar man räknare till nästa användare
             Username = username;
             Password = password;
             Email = email;
@@ -35,60 +37,61 @@ namespace InlämningsUppgift2
 
         }
 
-        public static User CreateNewUser()
+        public static User CreateNewUser() //Metoden för att skapa en ny användare med hjälp av konsolen
         {
             string username = AnsiConsole.Ask<string>("Ange ditt namn");
             string password = AnsiConsole.Ask<string>("Ange ditt lösenord");
             string email = AnsiConsole.Ask<string>("Ange ditt email");
             string adress = AnsiConsole.Ask<string>("Ange ditt adress");
 
-            User newUser = new User(username, password, email, adress);
-            SaveUser(newUser);
-            return newUser;
+            User newUser = new User(username, password, email, adress); //Här skapar man en instans av User med det hämtade data
+            SaveUser(newUser);  //Här sparar man användaren i minnet
+            return newUser;    //Och här returnerar man den
 
 
         }
 
-        public static void SaveUser(User user)
+        public static void SaveUser(User user) //Här sparar man användare
         {
-            List<User> allUsers = LoadUsers();
-            allUsers.Add(user);
+            List<User> allUsers = LoadUsers(); //Vi hämtar alla användare från filen
+            allUsers.Add(user); //Vi adderar den nya användaren till listan
 
-            KontoManager<User>.Save(allUsers, filePath);
-        }
+            KontoManager<User>.Save(allUsers, filePath); //här sparar man hela listan med hjälp av metoden Save från klassen
+        }                                                //KontoManager
 
-        public static List<User> LoadUsers()
+        public static List<User> LoadUsers()  //Hämtar användares lista från filen 
         {
-            List<User> allUsers = KontoManager<User>.Load(filePath);
+            List<User> allUsers = KontoManager<User>.Load(filePath); //Det här kallar metoden Load från klassen Kontomanager som 
+                                                                     //läser json filen och deserialize listan
             
-            if(allUsers != null && allUsers.Count > 0)
+            if(allUsers != null && allUsers.Count > 0)           //Om det finns användare, uppdaterar man här KundCounter för att unvdika problem
             {
-                int highestNumber = allUsers.Max(x => x.KundNummer);
-                KundCounter = highestNumber + 1;
+                int highestNumber = allUsers.Max(x => x.KundNummer); //Här hittar man högsta nummer från den nuvarande användare
+                KundCounter = highestNumber + 1; //vi faställer räknaren till nästa tillgängligt nummer 
             }
 
-            return allUsers;
+            return allUsers; //Retunerar listan, den kan vara också tom
             
         }
 
-        public static User LoginUser()
+        public static User LoginUser() //Metoden som begär samma uppgifter för att logga in
         {
-            List<User> allUsers = LoadUsers();
+            List<User> allUsers = LoadUsers(); //Här hämtar man existerande användare
 
-            if(allUsers.Count == 0)
+            if(allUsers.Count == 0) //Om det inste finns användare, begär vi här att skapa ett konto
             {
                 AnsiConsole.MarkupLine("Du måste skapa ett konto först");
                 return CreateNewUser();
             }
 
-            
+            //Vi begär uppggifter från användare för att kolla om de matchar 
             string username = AnsiConsole.Ask<string>("Ange ditt användarnamn:");
             string password = AnsiConsole.Ask<string>("Ange ditt lösenord:");
             
 
             User foundUser = null;
 
-            foreach(User x in allUsers)
+            foreach(User x in allUsers)  //Här söker man i användarnas lista om det finns en användare som matchar med samma uppgifter 
             {
                 if(x.Username == username && x.Password == password)
                 {
@@ -97,15 +100,17 @@ namespace InlämningsUppgift2
                 }
             }
 
-            if(foundUser == null)
+            if(foundUser == null) //Om det inte hittades 
             {
-                AnsiConsole.MarkupLine("[red] Fel användarnman [/]");
-                return null;
+                AnsiConsole.MarkupLine("[red] Fel användarnman [/]"); //Skriver man ett meddelande
+                return null;  // Och returnerar man null
             }
 
-            AnsiConsole.MarkupLine("[green] Du har loggat in [/]" + foundUser.Username);
-            LoggedInUser = foundUser;
-            return foundUser;
+            //Om det däremot hittades
+            
+            AnsiConsole.MarkupLine("[green] Du har loggat in [/]" + foundUser.Username); //Skriver vi ett meddelande som notis
+            LoggedInUser = foundUser; //Faställer vi LoggedInUser
+            return foundUser;  //Och returnerar den
         }
 
 

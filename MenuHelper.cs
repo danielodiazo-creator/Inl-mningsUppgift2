@@ -11,21 +11,21 @@ namespace InlämningsUppgift2
     {
         public void Menu()
         {
-            AnsiConsole.MarkupLine("[blue bold] Hej och välkommen [/]");
+            AnsiConsole.MarkupLine("[blue bold] Hej och välkommen [/]"); //Vi välkomnar användare med ett meddelande
 
 
-            bool GoOn = true;
+            bool GoOn = true;  //En loop så ska upprepas så länge GoOn är true
             while (GoOn)
             {
 
                
-                string option = AnsiConsole.Prompt(
+                string option = AnsiConsole.Prompt(  //En lista av möjliga val för användaren
                     new SelectionPrompt<string>()
                     .Title("Välj Alternativ")
                     .AddChoices("Skapa ny användare", "Logga in", "Spåra order", "Lägga till order", "Visa Kundvagnen")
                     );
 
-                switch (option)
+                switch (option)    //Beroende på valet så kallar vi de följande metoderna
                 {
                     case "Skapa ny användare":
                         User.CreateNewUser();

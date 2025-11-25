@@ -35,7 +35,7 @@ namespace InlämningsUppgift2
         public static void Save(List<T> items, string filePath)  // Metoden för att spara data till en json file
         {
 
-            //Konverterar listen av objekt till en text file med writeIndented format som för det lättare att läsa
+            //Konverterar listan av objekt till en text file med writeIndented format som för det lättare att läsa
 
             string jsonText = JsonSerializer.Serialize(items, new JsonSerializerOptions { WriteIndented = true });
            
