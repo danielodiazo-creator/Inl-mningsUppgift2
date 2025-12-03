@@ -31,45 +31,63 @@ namespace InlämningsUppgift2
 
         public static void ShowProduct()    //Visar alla tillgängliga produkter som finns att välja på
         {
-            
+
             if (User.LoggedInUser == null)   //Om det inte finns en inloggad användare 
             {
                 User.LoginUser();              // Vi försöker att användare logga in här
-                if(User.LoggedInUser == null) 
+                if (User.LoggedInUser == null)
                 {
                     AnsiConsole.MarkupLine("[red] Du måste skapa ett konto för att fortsätta [/]");
                     return;                  //Vi går ut från metoden med hjälp av return
 
                 }
 
-              
+
             }
+
+
+
 
             else                             //Om det finns en registrerad användare
             {
-                string json = File.ReadAllText("produkter.json");   //Läser vi json filen med alla produkter som finns i den
-                ProductRoot root = JsonSerializer.Deserialize<ProductRoot>(json);  //Deserialize Json filen till klassen producct root
-                                                                                   //som innehåller alla produkterna
-                var selectedProduct = AnsiConsole.Prompt(      
-                    new SelectionPrompt<Product>()
-                    .Title("[yellow] Välj bland de tillgängliga produkter[/]")           //Här skapas en urvarLista
-                    .PageSize(10)                                                        
-                    .MoreChoicesText("[bold grey] Visa mer [/]")
-                    .AddChoices(root.produkter)
-                    );
+                try
+                {
+
+                    string json = File.ReadAllText("produkter.json");   //Läser vi json filen med alla produkter som finns i den
+                    ProductRoot root = JsonSerializer.Deserialize<ProductRoot>(json);  //Deserialize Json filen till klassen producct root
+                                                                                       //som innehåller alla produkterna
+                    var selectedProduct = AnsiConsole.Prompt(
+                        new SelectionPrompt<Product>()
+                        .Title("[yellow] Välj bland de tillgängliga produkter[/]")           //Här skapas en urvarLista
+                        .PageSize(10)
+                        .MoreChoicesText("[bold grey] Visa mer [/]")
+                        .AddChoices(root.produkter)
+                        );
 
 
-                shoppingCar.Add(selectedProduct);                       //Vi adderar den valde produkten till kundvagnen
+                    shoppingCar.Add(selectedProduct);                       //Vi adderar den valde produkten till kundvagnen
 
-                AnsiConsole.MarkupLine("[green]KundVagnen :[/]");
-                AnsiConsole.MarkupLine($"ID: {selectedProduct.id}");              //Här visas information om produkterna i kundvagnen
-                AnsiConsole.MarkupLine($"Namn: {selectedProduct.name}");
-                AnsiConsole.MarkupLine($"Kategori: {selectedProduct.category}");
-                AnsiConsole.MarkupLine($"Pris: {selectedProduct.price} SEK");
-                AnsiConsole.MarkupLine($"Lager: {selectedProduct.stock}");
+                    AnsiConsole.MarkupLine("[green]KundVagnen :[/]");
+                    AnsiConsole.MarkupLine($"ID: {selectedProduct.id}");              //Här visas information om produkterna i kundvagnen
+                    AnsiConsole.MarkupLine($"Namn: {selectedProduct.name}");
+                    AnsiConsole.MarkupLine($"Kategori: {selectedProduct.category}");
+                    AnsiConsole.MarkupLine($"Pris: {selectedProduct.price} SEK");
+                    AnsiConsole.MarkupLine($"Lager: {selectedProduct.stock}");
 
-                AnsiConsole.MarkupLine("[bold yellow] Tryck på tangetbordet för att forsätta [/]");
-                Console.ReadKey();
+                    AnsiConsole.MarkupLine("[bold yellow] Tryck på tangetbordet för att forsätta [/]");
+                    Console.ReadKey();
+                }
+
+                catch (FileNotFoundException)
+                {
+                    AnsiConsole.MarkupLine("[red] Produktfilen hittades inte! Kontrollera att filen finns.[/]");
+                }
+                catch (Exception error)
+                {
+                    AnsiConsole.MarkupLine($"[red] Ett oväntat fel inträffade: {error.Message}[/]");
+                }
+
+
 
             }
   
@@ -114,11 +132,6 @@ namespace InlämningsUppgift2
 
 
     }
-
-
-
-
-
 
 
 

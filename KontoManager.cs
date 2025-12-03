@@ -11,7 +11,7 @@ namespace InlämningsUppgift2
     {
         public static List<T> Load(string filePath) //Metoden för att hämta ut data från en json file
         {
-            if (!File.Exists(filePath))  // Kontrollerar om filen existerar. Annars returnerar en tomt List
+            if (!File.Exists(filePath))  // Kontrollerar om filen existerar. Om den inte finns returnerar en tom List
             {
                 return new List<T>();
             }
@@ -20,7 +20,7 @@ namespace InlämningsUppgift2
 
             List<T> items = JsonSerializer.Deserialize<List<T>>(jsonText);   //Deserialize texten json till en list av objects från type T
             
-            if(items == null) //Om deserializen är null returnerar en tomt lista
+            if(items == null) //Om deserializen är null returnerar en tom lista
             {
                 return new List<T>();
             }

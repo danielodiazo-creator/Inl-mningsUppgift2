@@ -29,30 +29,38 @@ namespace InlämningsUppgift2
 
         public void CheckOut() //Metoden för att slutföra köpet från kundvagnen
         {
-            var choice = AnsiConsole.Prompt(      //Med hjälp av spectre.Console skapar vi en vall till användaren
-                new SelectionPrompt<string>()
-                .Title("[bold blue] Vill du slutföra ditt köp [/]")
-                .AddChoices("Ja", "Nej")
-
-
-                );
-
-            if (choice == "Ja")  //Om användaren väljer Ja 
+            try
             {
-                
-                
-                double total = Product.Total(); //Vi räknar ut totalen med hjälp av metoden total
-                AnsiConsole.MarkupLine($"[bold blue] Total köpt: {Product.Total()} [/]");  // Vi visar totalen i konsolen
 
-                AddOrder(Product.shoppingCar); //Vi skapar en ny order med produkterna i kundvagnen
-                Product.shoppingCar.Clear();  //Vi tommer kundvagnen
+                var choice = AnsiConsole.Prompt(      //Med hjälp av spectre.Console skapar vi en vall till användaren
+                    new SelectionPrompt<string>()
+                    .Title("[bold blue] Vill du slutföra ditt köp [/]")
+                    .AddChoices("Ja", "Nej")
+
+
+                    );
+
+                if (choice == "Ja")  //Om användaren väljer Ja 
+                {
+
+
+                    double total = Product.Total(); //Vi räknar ut totalen med hjälp av metoden total
+                    AnsiConsole.MarkupLine($"[bold blue] Total köpt: {Product.Total()} [/]");  // Vi visar totalen i konsolen
+
+                    AddOrder(Product.shoppingCar); //Vi skapar en ny order med produkterna i kundvagnen
+                    Product.shoppingCar.Clear();  //Vi tommer kundvagnen
+
+                }
+                else //Om användaren väljer Nej
+                {
+                    AnsiConsole.MarkupLine("[bold red] Köp avbrutet [/]");  // Vi visar i konsolen köp avbrutet
+                }
+            }
+            catch (Exception error)
+            {
+                AnsiConsole.MarkupLine($"[red] Fel vid checkout: {error.Message}[/]");
 
             }
-            else //Om användaren väljer Nej
-            {
-                AnsiConsole.MarkupLine("[bold red] Köp avbrutet [/]");  // Vi visar i konsolen köp avbrutet
-            }
-
         }
 
         public static void ShowOrderHistory() //Statisk metod för att visa köp historiken

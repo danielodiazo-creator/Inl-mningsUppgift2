@@ -16,7 +16,7 @@ namespace InlämningsUppgift2
         public string Password { get; set; }
         public string Email { get; set; }
         public string Adress { get; set; }
-        public int KundNummer { get; set; } //Unik användares nummer
+        public int KundNummer { get; set; } //Användares Unika nummer
 
 
         public static int KundCounter = 0; //Statisk Räknare för att skapa unika kundNummer
@@ -53,25 +53,51 @@ namespace InlämningsUppgift2
 
         public static void SaveUser(User user) //Här sparar man användare
         {
-            List<User> allUsers = LoadUsers(); //Vi hämtar alla användare från filen
-            allUsers.Add(user); //Vi adderar den nya användaren till listan
 
-            KontoManager<User>.Save(allUsers, filePath); //här sparar man hela listan med hjälp av metoden Save från klassen
-        }                                                //KontoManager
+            try
+            {
+                List<User> allUsers = LoadUsers(); //Vi hämtar alla användare från filen
+                allUsers.Add(user); //Vi adderar den nya användaren till listan
+
+                KontoManager<User>.Save(allUsers, filePath); //här sparar man hela listan med hjälp av metoden Save från klassen
+                                                             //KontoManager
+
+            }
+
+            catch (Exception error)
+            {
+                AnsiConsole.MarkupLine($"[red] Kunde inte spara användaren: {error.Message}[/]");
+            }
+
+
+        }                                                
 
         public static List<User> LoadUsers()  //Hämtar användares lista från filen 
         {
-            List<User> allUsers = KontoManager<User>.Load(filePath); //Det här kallar metoden Load från klassen Kontomanager som 
-                                                                     //läser json filen och deserialize listan
-            
-            if(allUsers != null && allUsers.Count > 0)           //Om det finns användare, uppdaterar man här KundCounter för att unvdika problem
+            try
             {
-                int highestNumber = allUsers.Max(x => x.KundNummer); //Här hittar man högsta nummer från den nuvarande användare
-                KundCounter = highestNumber + 1; //vi faställer räknaren till nästa tillgängligt nummer 
+
+                List<User> allUsers = KontoManager<User>.Load(filePath); //Det här kallar metoden Load från klassen Kontomanager som 
+                                                                         //läser json filen och deserialize listan
+
+                if (allUsers != null && allUsers.Count > 0)           //Om det finns användare, uppdaterar man här KundCounter för att unvdika problem
+                {
+                    int highestNumber = allUsers.Max(x => x.KundNummer); //Här hittar man högsta nummer från den nuvarande användare
+                    KundCounter = highestNumber + 1; //vi faställer räknaren till nästa tillgängligt nummer 
+                }
+
+                return allUsers; //Retunerar listan, den kan vara också tom
+            }
+               
+            
+            catch (Exception error)
+            {
+                AnsiConsole.MarkupLine($"[red] Ett oväntat fel inträffade: {error.Message}[/]");
+                return new List<User>();
             }
 
-            return allUsers; //Retunerar listan, den kan vara också tom
-            
+
+
         }
 
         public static User LoginUser() //Metoden som begär samma uppgifter för att logga in
@@ -80,7 +106,7 @@ namespace InlämningsUppgift2
 
             if(allUsers.Count == 0) //Om det inste finns användare, begär vi här att skapa ett konto
             {
-                AnsiConsole.MarkupLine("Du måste skapa ett konto först");
+                AnsiConsole.MarkupLine("Du måste först skapa ett konto");
                 return CreateNewUser();
             }
 

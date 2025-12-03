@@ -18,39 +18,48 @@ namespace InlämningsUppgift2
             while (GoOn)
             {
 
-               
-                string option = AnsiConsole.Prompt(  //En lista av möjliga val för användaren
-                    new SelectionPrompt<string>()
-                    .Title("Välj Alternativ")
-                    .AddChoices("Skapa ny användare", "Logga in", "Spåra order", "Lägga till order", "Visa Kundvagnen")
-                    );
-
-                switch (option)    //Beroende på valet så kallar vi de följande metoderna
+                try
                 {
-                    case "Skapa ny användare":
-                        User.CreateNewUser();
-                        break;
 
-                    case "Logga in":
-                        User.LoginUser();
-                        break;
+                    string option = AnsiConsole.Prompt(  //En lista av möjliga val för användaren
+                        new SelectionPrompt<string>()
+                        .Title("Välj Alternativ")
+                        .AddChoices("Skapa ny användare", "Logga in", "Spåra order", "Lägga till order", "Visa Kundvagnen")
+                        );
 
-                    case "Lägga till order":
-                        Product.ShowProduct();
-                        break;
+                    switch (option)    //Beroende på valet så kallar vi en av de följande metoderna
+                    {
+                        case "Skapa ny användare":
+                            User.CreateNewUser();
+                            break;
 
-                    case "Visa Kundvagnen":
-                        Product.ShoppingCar();
-                        break;
+                        case "Logga in":
+                            User.LoginUser();
+                            break;
 
-                    case "Spåra order":
-                        Order.ShowOrderHistory();
-                        break;
+                        case "Lägga till order":
+                            Product.ShowProduct();
+                            break;
 
-                    
+                        case "Visa Kundvagnen":
+                            Product.ShoppingCar();
+                            break;
+
+                        case "Spåra order":
+                            Order.ShowOrderHistory();
+                            break;
+
+                    }
                 }
 
+                catch (Exception error)
+                {
+                    AnsiConsole.MarkupLine($"[red] Ett fel inträffade i menyn: {error.Message} [/]");
+                }
+
+
             }
+
 
         }
         
