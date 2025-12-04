@@ -24,7 +24,7 @@ namespace InlämningsUppgift2
                     string option = AnsiConsole.Prompt(  //En lista av möjliga val för användaren
                         new SelectionPrompt<string>()
                         .Title("Välj Alternativ")
-                        .AddChoices("Skapa ny användare", "Logga in", "Spåra order", "Lägga till order", "Visa Kundvagnen")
+                        .AddChoices("Skapa ny användare", "Logga in", "Spåra order", "Lägga till order", "Visa Kundvagnen", "Radera kontot")
                         );
 
                     switch (option)    //Beroende på valet så kallar vi en av de följande metoderna
@@ -47,6 +47,10 @@ namespace InlämningsUppgift2
 
                         case "Spåra order":
                             Order.ShowOrderHistory();
+                            break;
+
+                        case "Radera kontot":
+                            User.DeleteAccount();
                             break;
 
                     }

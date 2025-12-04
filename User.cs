@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Spectre.Console;
 using System.Text.Json;
+using System.Globalization;
 
 namespace InlämningsUppgift2
 {
@@ -138,6 +139,74 @@ namespace InlämningsUppgift2
             LoggedInUser = foundUser; //Faställer vi LoggedInUser
             return foundUser;  //Och returnerar den
         }
+
+
+        public static void DeleteAccount()
+        {
+            if (LoggedInUser == null)
+            {
+                AnsiConsole.MarkupLine("[bold red] Du måste logga in först [/]");
+                return;
+            }
+
+            var confirm = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                .Title("[bold red] Är du säker på att du vill radera ditt konto[/]")
+                .AddChoices("Ja", "Nej")
+                );
+
+            if(confirm == "Ja")
+            {
+                try
+                {
+
+                    List<User> allUsers = LoadUsers();
+                    User userToDelete = null;
+
+                    foreach(User x in allUsers)
+                    {
+                        if(x.Username == LoggedInUser.Username && x.Password == LoggedInUser.Password)
+                        {
+                            userToDelete = x;
+                            break;
+
+                        }
+
+                    }
+
+                    if (userToDelete != null)
+                    {
+                        allUsers.Remove(userToDelete);
+                        KontoManager<User>.Save(allUsers, filePath);
+
+                        AnsiConsole.MarkupLine("[bold green] Ditt konto har raderats [/]");
+                        LoggedInUser = null;
+                    }
+
+                    else
+                    {
+                        AnsiConsole.MarkupLine("Användaren har inte hittats");
+                    }
+
+                }
+
+
+                catch(Exception error)
+                {
+                    AnsiConsole.MarkupLine("[bold red] Ett fel inträffade när kontot skulle tas bort");
+                }
+
+
+            }
+
+
+
+
+
+
+
+        }
+
 
 
     }
