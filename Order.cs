@@ -9,79 +9,87 @@ namespace InlämningsUppgift2
 {
     public class Order
     {
-        List<Product> Products { get; set; }
-        public double Total { get; set; }
-        public DateTime OrderDate {get; set;}
+        List<Product> Products { get; set; }  //Lista av produkter (private)
+        public double Total { get; set; }  //Total från orden
+        public DateTime OrderDate {get; set;}  //Datum när orden skapades
 
-        public static List<Order> ListOfOrders { get; set; } = new List<Order>();
+        public static List<Order> ListOfOrders { get; set; } = new List<Order>();  //Statisk lista som sparar ordrana från alla användarna
 
-        public void AddOrder(List<Product> products)
+        public void AddOrder(List<Product> products) // Metod för att skapa en ny order
         {
-            var newOrder = new Order
+            var newOrder = new Order  //Vi skapar en ny objekt
             {
-                Products = new List<Product>(products),
-                Total = products.Sum(p => p.price),
-                OrderDate = DateTime.Now,
+                Products = new List<Product>(products),  //Här kopierar man alla produkter som parameter
+                Total = products.Sum(p => p.price), //Här kalkylerar man total priset av varje produkt
+                OrderDate = DateTime.Now,  //Vi sparar det aktuella datumet
             };
 
-            ListOfOrders.Add(newOrder);
+            ListOfOrders.Add(newOrder); //Vi sparar orden i Listan av ordrarna
         }
 
-        public void CheckOut()
+        public void CheckOut() //Metoden för att slutföra köpet från kundvagnen
         {
-            var choice = AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-                .Title("[bold blue] Vill du slutföra ditt köp [/]")
-                .AddChoices("Ja", "Nej")
-
-
-                );
-
-            if (choice == "Ja")
+            try
             {
-                
-                
-                double total = Product.Total();
-                AnsiConsole.MarkupLine($"[bold blue] Total köpt: {Product.Total()} [/]");
 
-                AddOrder(Product.shoppingCar);
-                Product.shoppingCar.Clear();
+                var choice = AnsiConsole.Prompt(      //Med hjälp av spectre.Console skapar vi en vall till användaren
+                    new SelectionPrompt<string>()
+                    .Title("[bold blue] Vill du slutföra ditt köp [/]")
+                    .AddChoices("Ja", "Nej")
+
+
+                    );
+
+                if (choice == "Ja")  //Om användaren väljer Ja 
+                {
+
+
+                    double total = Product.Total(); //Vi räknar ut totalen med hjälp av metoden total
+                    AnsiConsole.MarkupLine($"[bold blue] Total köpt: {Product.Total()} [/]");  // Vi visar totalen i konsolen
+
+                    AddOrder(Product.shoppingCar); //Vi skapar en ny order med produkterna i kundvagnen
+                    Product.shoppingCar.Clear();  //Vi tommer kundvagnen
+
+                }
+                else //Om användaren väljer Nej
+                {
+                    AnsiConsole.MarkupLine("[bold red] Köp avbrutet [/]");  // Vi visar i konsolen köp avbrutet
+                }
+            }
+            catch (Exception error)
+            {
+                AnsiConsole.MarkupLine($"[red] Fel vid checkout: {error.Message}[/]");
 
             }
-            else
-            {
-                AnsiConsole.MarkupLine("[bold red] Köp avbrutet [/]");
-            }
-
         }
 
-        public static void ShowOrderHistory()
+        public static void ShowOrderHistory() //Statisk metod för att visa köp historiken
         {
-            if(Order.ListOfOrders.Count == 0)
+            if(Order.ListOfOrders.Count == 0)  //Om det inte finns ordrar vi visar följande i konsolen
             {
                 AnsiConsole.MarkupLine("[bold red]Inga tidigare köp hittades[/]");
-                return;
+                return;  // Vi avbryter metoden
 
             }
 
-            else
+            else //Om det finns ordrar
             {
-                foreach(var x in Order.ListOfOrders)
+                foreach(var x in Order.ListOfOrders)  // Vi går igenom alla ordrar
                 {
-                    var table = new Table();
+                    var table = new Table(); //Vi skapar en tabell för att visa ordrarna
                     
                     table.Title($"[bold green] Order från {x.OrderDate} [/]");
 
                     table.AddColumn("[bold yellow] produkt [/]");
                     table.AddColumn("[bold yellow] pris [/] "); 
 
-                    foreach(var p in x.Products)
+                    foreach(var p in x.Products) //Vi adderar varje produkt till tabellen
                     {
-                        table.AddRow(p.name, p.price.ToString("0,00"));
+                        table.AddRow(p.name, p.price.ToString("0,00")); //0.00 Står för typ av formaten som kommer visas i konsolen
                     }
 
                     table.AddRow($"[Bold yellow] Total [/]", $"[bold yellow]{x.Total: 0.00}[/]");
-                    AnsiConsole.Write(table);
+                    AnsiConsole.Write(table);  //Vi visar tabellen i konsolen
                     AnsiConsole.WriteLine();
                 }
             }
