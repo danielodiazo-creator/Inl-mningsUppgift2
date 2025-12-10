@@ -21,11 +21,21 @@ namespace InlämningsUppgift2
                 try
                 {
 
-                    string option = AnsiConsole.Prompt(  //En lista av möjliga val för användaren
-                        new SelectionPrompt<string>()
+                    var prompt = new SelectionPrompt<string>() //En lista av möjliga val för användaren
+
                         .Title("Välj Alternativ")
-                        .AddChoices("Skapa ny användare", "Logga in", "Spåra order", "Lägga till order", "Visa Kundvagnen", "Radera kontot")
-                        );
+                        .AddChoices("Skapa ny användare", "Logga in", "Visa ordrar", "Lägga till order", "Visa Kundvagnen", "Radera kontot",
+                        "Avsluta programmet");
+
+                    if (User.LoggedInUser?.Username == "Admin")
+                    {
+                        prompt.AddChoices("Visa alla användare", "Radera användare");
+                    }
+
+                   
+
+                    string option = AnsiConsole.Prompt(prompt);
+
 
                     switch (option)    //Beroende på valet så kallar vi en av de följande metoderna
                     {
@@ -45,7 +55,7 @@ namespace InlämningsUppgift2
                             Product.ShoppingCar();
                             break;
 
-                        case "Spåra order":
+                        case "Visa ordrar":
                             Order.ShowOrderHistory();
                             break;
 
@@ -53,21 +63,34 @@ namespace InlämningsUppgift2
                             User.DeleteAccount();
                             break;
 
+                        case "Visa alla användare":
+                            User.ShowAllUsers();
+                            break;
+
+                        case "Radera användare":
+                            User.AdminDelateAUser();
+                            break;
+
+                        case "Avsluta programmet":
+                            GoOn = false;
+                            break;
                     }
+
                 }
 
+        
                 catch (Exception error)
                 {
                     AnsiConsole.MarkupLine($"[red] Ett fel inträffade i menyn: {error.Message} [/]");
                 }
 
-
             }
-
-
         }
-        
 
 
     }
+        
+
+
+    
 }

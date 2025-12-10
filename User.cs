@@ -143,49 +143,49 @@ namespace InlämningsUppgift2
 
         public static void DeleteAccount()
         {
-            if (LoggedInUser == null)
+            if (LoggedInUser == null)   //Om det inte finns någon inlogad än
             {
                 AnsiConsole.MarkupLine("[bold red] Du måste logga in först [/]");
                 return;
             }
 
-            var confirm = AnsiConsole.Prompt(
+            var confirm = AnsiConsole.Prompt(   //Menyn för att säkerställa att användaren vill radera sitt konto
                 new SelectionPrompt<string>()
                 .Title("[bold red] Är du säker på att du vill radera ditt konto[/]")
                 .AddChoices("Ja", "Nej")
                 );
 
-            if(confirm == "Ja")
+            if(confirm == "Ja")  //Om användaren vill radera sitt konto
             {
                 try
                 {
 
-                    List<User> allUsers = LoadUsers();
+                    List<User> allUsers = LoadUsers();  //Här hämtar man alla användare med hjälp av metoden loadUsers
                     User userToDelete = null;
 
-                    foreach(User x in allUsers)
+                    foreach(User x in allUsers)  //för varje user in allUsers 
                     {
-                        if(x.Username == LoggedInUser.Username && x.Password == LoggedInUser.Password)
-                        {
-                            userToDelete = x;
+                        if(x.Username == LoggedInUser.Username && x.Password == LoggedInUser.Password) //Kontrollerar att Username och password 
+                        {                                                                              //stämmer med username och password i 
+                            userToDelete = x;                                                         //LoggedInUser
                             break;
 
                         }
 
                     }
 
-                    if (userToDelete != null)
+                    if (userToDelete != null)      //Om usertodelate hittades 
                     {
-                        allUsers.Remove(userToDelete);
-                        KontoManager<User>.Save(allUsers, filePath);
+                        allUsers.Remove(userToDelete);  //vi tar den bort med hjälp av Remove
+                        KontoManager<User>.Save(allUsers, filePath);  //Vi sparar igen den uppdaterade listan i jsonfilen
 
-                        AnsiConsole.MarkupLine("[bold green] Ditt konto har raderats [/]");
-                        LoggedInUser = null;
+                        AnsiConsole.MarkupLine("[bold green] Ditt konto har raderats [/]"); //Vi bekräftar att kontot har raderats
+                        LoggedInUser = null;  //Vi åsteräller LoggedInUser till null för att undvika kommande konfilkter
                     }
 
                     else
                     {
-                        AnsiConsole.MarkupLine("Användaren har inte hittats");
+                        AnsiConsole.MarkupLine("Användaren har inte hittats");  //Om användaren hittades inte skriver vi ett meddelande
                     }
 
                 }
@@ -199,15 +199,94 @@ namespace InlämningsUppgift2
 
             }
 
+        }
+
+        public static void Admin() //Metoden för att skapa eller kontrollera om admin finns. Annars skapar vi den
+        {
+            List<User> users = LoadUsers();
+            bool existAdmin = false;
+
+            foreach(User x in users)
+            {
+                if (x.Username == "Admin")
+                {
+                    existAdmin = true;
+                    break;
+                }
+            }
+
+            if (!existAdmin)  
+            {
+                User admin = new User("Admin", "0000", "Ad@gmail.com", "df");
+                users.Add(admin);
+                KontoManager<User>.Save(users, filePath);
+                AnsiConsole.MarkupLine("[bold green] Admin kontot har skapats [/]");
 
 
 
+            }
 
+        }
+
+        public static void ShowAllUsers() //Metoden för att visa alla användare
+        {
+            List<User> users = LoadUsers(); //Här hämtar vi alla användare
+
+            Table table = new Table();  //Vi skapar en tabell med hjälp av spectre.Console
+            table.AddColumn("Kundnummer");
+            table.AddColumn("Användare");
+            table.AddColumn("Email");
+            table.AddColumn("Adress");
+
+
+            foreach (User x in users)
+            {
+                table.AddRow(
+                    x.KundNummer.ToString(),
+                    x.Username,
+                    x.Email,
+                    x.Adress
+
+                );
+            }
+
+            AnsiConsole.Write(table);
 
 
         }
 
+        public static void AdminDelateAUser() //Metoden för att Admin ska kunna raddera vilken användare som helst
+        {
+            List<User> users = LoadUsers();
 
+            string username = AnsiConsole.Ask<string>("Ange användarens namn du vill radera");
+            User delateUser = null;
+
+            foreach (User x in users)
+            {
+                if(x.Username == username)
+                {
+                    delateUser = x;
+                    break;
+                }
+            }
+
+            if(delateUser == null)
+            {
+                AnsiConsole.MarkupLine("[red] Användaren hittades inte [/]");
+                return;
+            }
+
+            if (delateUser.Username == "Admin")
+            {
+                AnsiConsole.MarkupLine("[bold red] Admin kan inte radderas[/]");
+            }
+
+            users.Remove(delateUser);
+            KontoManager<User>.Save(users, filePath);
+            AnsiConsole.MarkupLine("[bold green] Användaren har raderats [/]");
+
+        }
 
     }
 }
